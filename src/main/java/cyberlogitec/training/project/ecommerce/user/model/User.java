@@ -6,8 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "ecommerce_user")
@@ -16,6 +18,7 @@ import javax.validation.constraints.NotNull;
 public class User extends AbstractEntity {
     @Column(unique = true)
     @NotBlank(message = "{user.username.notblank}")
+    @Size(message = "{user.username.size}", min = 4, max = 8)
     private String username;
 
     private String fullname;
@@ -26,6 +29,7 @@ public class User extends AbstractEntity {
 
     @Column(unique = true)
     @NotBlank(message = "{user.email.notblank}")
+    @Email
     private String email;
 
     private String address;
@@ -34,4 +38,7 @@ public class User extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "name")
+    private Role role;
 }
