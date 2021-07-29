@@ -1,5 +1,6 @@
 package cyberlogitec.training.project.ecommerce.user.controller;
 
+import cyberlogitec.training.project.ecommerce.dto.user.RoleDto;
 import cyberlogitec.training.project.ecommerce.user.model.Role;
 import cyberlogitec.training.project.ecommerce.user.service.RoleService;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,12 @@ public class RoleController {
     @GetMapping("")
     public List<Role> findAll(){
         List<Role> list = service.findAll();
+        return list;
+    }
+
+    @GetMapping("/mybatis/test")
+    public List<RoleDto> findAllRole(){
+        List<RoleDto> list = service.findAllRole();
         return list;
     }
 
