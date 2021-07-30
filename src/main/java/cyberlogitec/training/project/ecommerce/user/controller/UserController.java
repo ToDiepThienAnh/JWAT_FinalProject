@@ -1,5 +1,6 @@
 package cyberlogitec.training.project.ecommerce.user.controller;
 
+import cyberlogitec.training.project.ecommerce.common.ResponseObject;
 import cyberlogitec.training.project.ecommerce.user.model.User;
 import cyberlogitec.training.project.ecommerce.user.service.UserService;
 import lombok.AllArgsConstructor;
@@ -18,17 +19,18 @@ public class UserController {
     private UserService service;
 
     @GetMapping("")
-    public List<User> getAllUser(){
+    public ResponseEntity<Object> findAll(){
         List<User> list = service.findAll();
-
-        return list;
+        if(list.isEmpty())
+            return ResponseObject.getResponse("There is no data", HttpStatus.OK);
+        return ResponseObject.getResponse(list, HttpStatus.OK);
     }
 
     @PostMapping("")
     public ResponseEntity<Object> addUser(@Valid @RequestBody User user, BindingResult errors){
         if(errors.hasErrors())
-            return new ResponseEntity<>(errors.getAllErrors().get(0).getDefaultMessage(), HttpStatus.BAD_REQUEST);
+            return ResponseObject.getResponse(errors, HttpStatus.BAD_REQUEST);
         User newUser = service.save(user);
-        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+        return ResponseObject.getResponse(newUser, HttpStatus.CREATED);
     }
 }

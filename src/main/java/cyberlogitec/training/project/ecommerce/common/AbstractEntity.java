@@ -1,5 +1,7 @@
 package cyberlogitec.training.project.ecommerce.common;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import cyberlogitec.training.project.ecommerce.utils.DateUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -24,9 +26,11 @@ public class AbstractEntity implements Serializable {
 
     @CreatedDate
     @Column(name = "created_at",nullable = false ,updatable = false)
+    @JsonFormat(pattern = DateUtils.DATE_FORMAT)
     protected LocalDateTime createAt;
 
     @LastModifiedDate
     @Column(name = "updated_at", nullable = false)
+    @JsonFormat(pattern = DateUtils.DATE_FORMAT)
     protected LocalDateTime updateAt;
 }
