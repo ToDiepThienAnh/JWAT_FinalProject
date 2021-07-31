@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import cyberlogitec.training.project.ecommerce.common.AbstractEntity;
 import cyberlogitec.training.project.ecommerce.user.util.UserStatus;
 import cyberlogitec.training.project.ecommerce.utils.DateUtils;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +24,9 @@ public class User extends AbstractEntity {
     @NotBlank(message = "{user.username.notblank}")
     @Size(message = "{user.username.size}", min = 4, max = 8)
     private String username;
+
+    @NotBlank(message = "{user.userId.notblank")
+    private String userId;
 
     private String fullname;
 

@@ -2,6 +2,7 @@ package cyberlogitec.training.project.ecommerce.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import cyberlogitec.training.project.ecommerce.common.AbstractEntity;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
