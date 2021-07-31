@@ -2,6 +2,8 @@ package cyberlogitec.training.project.ecommerce.user.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import cyberlogitec.training.project.ecommerce.common.AbstractEntity;
+import cyberlogitec.training.project.ecommerce.computer.model.Comment;
+import cyberlogitec.training.project.ecommerce.invoice.model.Invoice;
 import cyberlogitec.training.project.ecommerce.user.util.UserStatus;
 import cyberlogitec.training.project.ecommerce.utils.DateUtils;
 import lombok.Data;
@@ -14,6 +16,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "ecommerce_user")
@@ -51,4 +54,10 @@ public class User extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "name")
     private Role role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Comment> comments;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Invoice> invoices;
 }

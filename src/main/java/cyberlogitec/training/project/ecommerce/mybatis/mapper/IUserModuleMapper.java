@@ -19,9 +19,9 @@ public interface IUserModuleMapper {
     public List<RoleDto> findAllRole();
 
     @SelectProvider(type = UserSqlProvider.class, method = "getUserWithRole")
-    @Results({
-            @Result(property = "role.name", javaType = User.class, column = "r.name", one = @One),
-            @Result(property = "role.description", javaType = User.class, column = "r.description", one = @One)
-    })
+//    @Results({
+//            @Result(property = "role.name", javaType = User.class, column = "r.name", one = @One),
+//            @Result(property = "role.description", javaType = User.class, column = "r.description", one = @One)
+//    })
     public List<User> getUserWithRole();
 }
