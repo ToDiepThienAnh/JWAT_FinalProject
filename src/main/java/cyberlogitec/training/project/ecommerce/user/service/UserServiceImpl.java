@@ -10,6 +10,7 @@ import cyberlogitec.training.project.ecommerce.user.repository.UserRepository;
 import cyberlogitec.training.project.ecommerce.user.util.UserStatus;
 import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class UserServiceImpl extends GenericService<User, Long> implements UserS
     private IUserModuleMapper repository;
     private UserRepository userRepository;
     private RoleRepository roleRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> getUserWithRole() {
@@ -30,7 +32,7 @@ public class UserServiceImpl extends GenericService<User, Long> implements UserS
     public User save(CreateUserDto user) {
         User userAdd = new User();
         userAdd.setUsername(user.getUsername());
-        userAdd.setPassword("123");
+        userAdd.setPassword(passwordEncoder.encode("123"));
         userAdd.setUserId(user.getUserId());
         userAdd.setFullname(user.getFullname());
         userAdd.setStatus(UserStatus.ACTIVE);
