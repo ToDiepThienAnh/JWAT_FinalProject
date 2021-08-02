@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TypeComputerRepository extends JpaRepository<TypeComputer, Long> {
+    public TypeComputer findByName(String typeName);
+
+    public void deleteByName(String name);
 }
