@@ -21,7 +21,7 @@ public class UserController {
 
     @GetMapping("")
     public ResponseEntity<Object> findAll(){
-        List<User> list = service.getUserWithRole();
+        List<User> list = service.findAll();
         if(list.isEmpty())
             return ResponseObject.getResponse("There is no data", HttpStatus.OK);
         return ResponseObject.getResponse(list, HttpStatus.OK);
