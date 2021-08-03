@@ -18,6 +18,7 @@ import java.util.Set;
 @Entity
 @Table(name = "ecommerce_computer")
 public class Computer extends AbstractEntity {
+    @Column(unique = true)
     private String name;
 
     @Column(unique = true)

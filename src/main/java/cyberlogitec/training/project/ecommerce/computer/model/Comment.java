@@ -1,5 +1,6 @@
 package cyberlogitec.training.project.ecommerce.computer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cyberlogitec.training.project.ecommerce.common.AbstractEntity;
 import cyberlogitec.training.project.ecommerce.user.model.User;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class Comment extends AbstractEntity {
     private Comment replyFor;
 
     @OneToMany(mappedBy = "replyFor", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Comment> comments;
 
     @ManyToOne(fetch = FetchType.LAZY)
