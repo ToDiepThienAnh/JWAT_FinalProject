@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         // configure authentication for apis
         http.antMatcher("/api/**").authorizeRequests()
-//                .antMatchers("/api/**").permitAll()
+                .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/login").permitAll()
                 .anyRequest().authenticated();
         // make server stateless

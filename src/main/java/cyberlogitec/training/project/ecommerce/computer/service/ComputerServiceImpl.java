@@ -6,14 +6,18 @@ import cyberlogitec.training.project.ecommerce.computer.model.TypeComputer;
 import cyberlogitec.training.project.ecommerce.computer.repository.ComputerRepository;
 import cyberlogitec.training.project.ecommerce.computer.repository.TypeComputerRepository;
 import cyberlogitec.training.project.ecommerce.dto.computer.CreateComputerDto;
+import cyberlogitec.training.project.ecommerce.mybatis.mapper.IComputerModuleMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class ComputerServiceImpl extends GenericService<Computer, Long> implements ComputerService {
     private ComputerRepository repository;
     private TypeComputerRepository typeComputerRepository;
+    private IComputerModuleMapper iComputerModuleMapper;
 
     @Override
     public Computer save(CreateComputerDto computer) {
@@ -32,5 +36,10 @@ public class ComputerServiceImpl extends GenericService<Computer, Long> implemen
         TypeComputer type = typeComputerRepository.findByName(computer.getTypeName());
         newComputer.setType(type);
         return repository.save(newComputer);
+    }
+
+    @Override
+    public List<Computer> searchByName(String name) {
+        return iComputerModuleMapper.searchComputerByName(name);
     }
 }

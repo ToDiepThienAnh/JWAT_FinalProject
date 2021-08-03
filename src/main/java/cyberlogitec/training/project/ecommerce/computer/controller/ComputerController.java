@@ -29,6 +29,14 @@ public class ComputerController {
         return ResponseObject.getResponse(list, HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<Object> searchByName(@RequestParam("name") String name){
+        List<Computer> list = service.searchByName(name);
+        if(list.isEmpty())
+            return ResponseObject.getResponse("There is no data", HttpStatus.OK);
+        return ResponseObject.getResponse(list, HttpStatus.OK);
+    }
+
     @PostMapping("")
     public ResponseEntity<Object> addNewType(@Valid @RequestBody CreateComputerDto dto,
                                              BindingResult errors){
