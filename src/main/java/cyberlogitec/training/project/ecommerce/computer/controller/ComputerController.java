@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/computer")
+@RequestMapping(value = "/api/computer", produces = "application/json;charset=UTF-8")
 public class ComputerController {
     private ComputerService service;
 

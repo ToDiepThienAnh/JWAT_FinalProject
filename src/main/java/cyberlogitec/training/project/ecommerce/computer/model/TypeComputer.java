@@ -1,5 +1,6 @@
 package cyberlogitec.training.project.ecommerce.computer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cyberlogitec.training.project.ecommerce.common.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,5 +22,6 @@ public class TypeComputer extends AbstractEntity {
     private String description;
 
     @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Computer> computers;
 }

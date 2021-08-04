@@ -1,5 +1,6 @@
 package cyberlogitec.training.project.ecommerce.computer.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import cyberlogitec.training.project.ecommerce.common.AbstractEntity;
 import cyberlogitec.training.project.ecommerce.computer.utils.ComputerStatus;
 import cyberlogitec.training.project.ecommerce.invoice.model.InvoiceDetail;
