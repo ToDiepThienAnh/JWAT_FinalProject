@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import cyberlogitec.training.project.ecommerce.common.AbstractEntity;
 import cyberlogitec.training.project.ecommerce.computer.model.Comment;
 import cyberlogitec.training.project.ecommerce.invoice.model.Invoice;
+import cyberlogitec.training.project.ecommerce.user.annotation.ExistsUsername;
 import cyberlogitec.training.project.ecommerce.user.util.UserStatus;
 import cyberlogitec.training.project.ecommerce.utils.DateUtils;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

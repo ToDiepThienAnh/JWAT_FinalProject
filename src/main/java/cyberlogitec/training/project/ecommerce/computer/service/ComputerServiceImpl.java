@@ -39,7 +39,8 @@ public class ComputerServiceImpl extends GenericService<Computer, Long> implemen
     }
 
     @Override
-    public List<Computer> searchByName(String name) {
+    public List<CreateComputerDto> searchByName(String name) {
+
         return iComputerModuleMapper.searchComputerByName(name);
     }
 }

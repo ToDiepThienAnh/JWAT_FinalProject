@@ -1,5 +1,7 @@
 package cyberlogitec.training.project.ecommerce.dto.user;
 
+import cyberlogitec.training.project.ecommerce.user.annotation.ExistsEmail;
+import cyberlogitec.training.project.ecommerce.user.annotation.ExistsUsername;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,10 +15,12 @@ import javax.validation.constraints.Size;
 public class CreateUserDto {
     @NotBlank(message = "{user.username.notblank}")
     @Size(message = "{user.username.size", max = 8, min = 4)
+    @ExistsUsername
     private String username;
 
     @NotBlank(message = "{user.email.notblank}")
     @Email
+    @ExistsEmail
     private String email;
 
     private String fullname;

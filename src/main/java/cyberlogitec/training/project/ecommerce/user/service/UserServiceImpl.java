@@ -42,4 +42,14 @@ public class UserServiceImpl extends GenericService<User, Long> implements UserS
         return userRepository.save(userAdd);
     }
 
+    @Override
+    public boolean isEmailTaken(String email) {
+        return userRepository.countByEmail(email) >= 1;
+    }
+
+    @Override
+    public boolean isUsernameTaken(String username) {
+        return userRepository.countByUsername(username) >= 1;
+    }
+
 }

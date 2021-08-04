@@ -31,7 +31,7 @@ public class ComputerController {
 
     @GetMapping("/search")
     public ResponseEntity<Object> searchByName(@RequestParam("name") String name){
-        List<Computer> list = service.searchByName(name);
+        List<CreateComputerDto> list = service.searchByName(name);
         if(list.isEmpty())
             return ResponseObject.getResponse("There is no data", HttpStatus.OK);
         return ResponseObject.getResponse(list, HttpStatus.OK);

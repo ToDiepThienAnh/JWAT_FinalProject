@@ -9,5 +9,5 @@ import java.util.List;
 public interface ComputerService extends IGenericService<Computer, Long> {
     public Computer save(CreateComputerDto computer);
 
-    public List<Computer> searchByName(String name);
+    public List<CreateComputerDto> searchByName(String name);
 }

@@ -9,9 +9,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface UserService extends IGenericService<User, Long> {
     public List<User> getUserWithRole();
 
     public User save(CreateUserDto user);
+
+    public boolean isEmailTaken(String email);
+
+    public boolean isUsernameTaken(String username);
 }

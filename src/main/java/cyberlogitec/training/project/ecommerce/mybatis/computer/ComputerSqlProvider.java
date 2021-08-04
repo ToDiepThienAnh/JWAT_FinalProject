@@ -1,5 +1,6 @@
 package cyberlogitec.training.project.ecommerce.mybatis.computer;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
 public class ComputerSqlProvider {
@@ -19,12 +20,12 @@ public class ComputerSqlProvider {
         }.toString();
     }
 
-    public String searchByName(String name){
+    public String searchByName(@Param("name") String name){
         return new SQL(){
             {
                 SELECT("*");
                 FROM("ECOMMERCE_COMPUTER");
-                WHERE("name like _#{name}_");
+                WHERE("name like '%#{name}%' ");
             }
         }.toString();
     }

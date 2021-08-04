@@ -1,6 +1,7 @@
 package cyberlogitec.training.project.ecommerce.computer.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cyberlogitec.training.project.ecommerce.common.AbstractEntity;
 import cyberlogitec.training.project.ecommerce.computer.utils.ComputerStatus;
 import cyberlogitec.training.project.ecommerce.invoice.model.InvoiceDetail;
@@ -52,9 +53,11 @@ public class Computer extends AbstractEntity {
     private TypeComputer type;
 
     @OneToMany(mappedBy = "computer", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Comment> comments;
 
 
     @OneToMany(mappedBy = "computer", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<InvoiceDetail> computers = new HashSet<>();
 }
