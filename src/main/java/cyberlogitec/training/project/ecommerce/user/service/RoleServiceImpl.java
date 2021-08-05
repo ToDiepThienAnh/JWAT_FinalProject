@@ -31,8 +31,4 @@ public class RoleServiceImpl extends GenericService<Role, Long> implements RoleS
         return repository.findByName(roleName);
     }
 
-    @Override
-    public List<RoleDto> findAllRole() {
-        return userRepository.findAllRole();
-    }
 }

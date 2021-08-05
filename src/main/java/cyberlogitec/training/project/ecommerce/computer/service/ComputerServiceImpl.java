@@ -5,6 +5,7 @@ import cyberlogitec.training.project.ecommerce.computer.model.Computer;
 import cyberlogitec.training.project.ecommerce.computer.model.TypeComputer;
 import cyberlogitec.training.project.ecommerce.computer.repository.ComputerRepository;
 import cyberlogitec.training.project.ecommerce.computer.repository.TypeComputerRepository;
+import cyberlogitec.training.project.ecommerce.dto.computer.ComputerDto;
 import cyberlogitec.training.project.ecommerce.dto.computer.CreateComputerDto;
 import cyberlogitec.training.project.ecommerce.mybatis.mapper.IComputerModuleMapper;
 import lombok.AllArgsConstructor;
@@ -39,7 +40,7 @@ public class ComputerServiceImpl extends GenericService<Computer, Long> implemen
     }
 
     @Override
-    public List<CreateComputerDto> searchByName(String name) {
+    public List<ComputerDto> searchByName(String name) {
 
         return iComputerModuleMapper.searchComputerByName(name);
     }

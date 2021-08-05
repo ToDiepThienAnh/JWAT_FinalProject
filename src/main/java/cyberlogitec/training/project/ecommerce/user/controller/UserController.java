@@ -2,6 +2,7 @@ package cyberlogitec.training.project.ecommerce.user.controller;
 
 import cyberlogitec.training.project.ecommerce.common.ResponseObject;
 import cyberlogitec.training.project.ecommerce.dto.user.CreateUserDto;
+import cyberlogitec.training.project.ecommerce.dto.user.UserWithRoleDto;
 import cyberlogitec.training.project.ecommerce.user.model.User;
 import cyberlogitec.training.project.ecommerce.user.service.UserService;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ public class UserController {
 
     @GetMapping("")
     public ResponseEntity<Object> findAll(){
-        List<User> list = service.findAll();
+        List<UserWithRoleDto> list = service.getUserWithRole();
         if(list.isEmpty())
             return ResponseObject.getResponse("There is no data", HttpStatus.OK);
         return ResponseObject.getResponse(list, HttpStatus.OK);

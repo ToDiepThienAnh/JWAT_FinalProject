@@ -1,6 +1,7 @@
 package cyberlogitec.training.project.ecommerce.user.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cyberlogitec.training.project.ecommerce.common.AbstractEntity;
 import cyberlogitec.training.project.ecommerce.computer.model.Comment;
 import cyberlogitec.training.project.ecommerce.invoice.model.Invoice;
@@ -56,8 +57,10 @@ public class User extends AbstractEntity {
     private Role role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Comment> comments;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Invoice> invoices;
 }

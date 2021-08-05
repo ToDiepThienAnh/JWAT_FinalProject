@@ -23,11 +23,7 @@ public class RoleController {
         return list;
     }
 
-    @GetMapping("/mybatis/test")
-    public List<RoleDto> findAllRole(){
-        List<RoleDto> list = service.findAllRole();
-        return list;
-    }
+
 
     @PostMapping("")
     public Role addRole(@Valid @RequestBody Role role){

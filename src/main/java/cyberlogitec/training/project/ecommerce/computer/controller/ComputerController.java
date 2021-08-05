@@ -4,6 +4,7 @@ import cyberlogitec.training.project.ecommerce.common.ResponseObject;
 import cyberlogitec.training.project.ecommerce.computer.model.Computer;
 import cyberlogitec.training.project.ecommerce.computer.model.TypeComputer;
 import cyberlogitec.training.project.ecommerce.computer.service.ComputerService;
+import cyberlogitec.training.project.ecommerce.dto.computer.ComputerDto;
 import cyberlogitec.training.project.ecommerce.dto.computer.CreateComputerDto;
 import cyberlogitec.training.project.ecommerce.dto.computer.CreateTypeComputerDto;
 import lombok.AllArgsConstructor;
@@ -31,7 +32,7 @@ public class ComputerController {
 
     @GetMapping("/search")
     public ResponseEntity<Object> searchByName(@RequestParam("name") String name){
-        List<CreateComputerDto> list = service.searchByName(name);
+        List<ComputerDto> list = service.searchByName(name);
         if(list.isEmpty())
             return ResponseObject.getResponse("There is no data", HttpStatus.OK);
         return ResponseObject.getResponse(list, HttpStatus.OK);

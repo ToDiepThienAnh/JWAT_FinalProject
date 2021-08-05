@@ -6,7 +6,7 @@ public class UserSqlProvider {
     public String getUserWithRole(){
         return new SQL(){
             {
-                SELECT("*");
+                SELECT("u.*, r.name, r.description");
                 FROM("ecommerce_user as u");
                 FROM("ecommerce_role as r");
                 WHERE("u.role_name = r.name");

@@ -16,6 +16,4 @@ public class CreateCommentDto {
     @NotBlank(message = "{computer.computer.name.notblank")
     private String nameComputer;
 
-    @NotBlank(message = "{user.user.username.notblank")
-    private String username;
 }

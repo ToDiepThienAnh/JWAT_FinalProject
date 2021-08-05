@@ -1,5 +1,6 @@
 package cyberlogitec.training.project.ecommerce.invoice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cyberlogitec.training.project.ecommerce.common.AbstractEntity;
 import cyberlogitec.training.project.ecommerce.invoice.utils.InvoiceStatus;
 import cyberlogitec.training.project.ecommerce.user.model.User;
@@ -23,8 +24,6 @@ public class Invoice extends AbstractEntity {
 
     private BigDecimal price;
 
-    private LocalDateTime purchaseDate;
-
     private BigDecimal feeShip;
 
     @Enumerated(EnumType.STRING)
@@ -39,5 +38,6 @@ public class Invoice extends AbstractEntity {
     private User user;
 
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<InvoiceDetail> invoices = new HashSet<>();
 }

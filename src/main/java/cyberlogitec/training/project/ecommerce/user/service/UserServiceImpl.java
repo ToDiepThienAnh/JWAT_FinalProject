@@ -2,6 +2,7 @@ package cyberlogitec.training.project.ecommerce.user.service;
 
 import cyberlogitec.training.project.ecommerce.common.GenericService;
 import cyberlogitec.training.project.ecommerce.dto.user.CreateUserDto;
+import cyberlogitec.training.project.ecommerce.dto.user.UserWithRoleDto;
 import cyberlogitec.training.project.ecommerce.mybatis.mapper.IUserModuleMapper;
 import cyberlogitec.training.project.ecommerce.user.model.Role;
 import cyberlogitec.training.project.ecommerce.user.model.User;
@@ -24,7 +25,7 @@ public class UserServiceImpl extends GenericService<User, Long> implements UserS
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public List<User> getUserWithRole() {
+    public List<UserWithRoleDto> getUserWithRole() {
         return repository.getUserWithRole();
     }
 

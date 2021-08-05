@@ -3,6 +3,8 @@ package cyberlogitec.training.project.ecommerce.mybatis.computer;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
+import java.util.Map;
+
 public class ComputerSqlProvider {
     public String searchNameRamCardCpu(String name, String ram, String card, String cpu){
         return new SQL(){
@@ -20,13 +22,16 @@ public class ComputerSqlProvider {
         }.toString();
     }
 
-    public String searchByName(@Param("name") String name){
+    public String searchByName(Map<String, Object> para){
         return new SQL(){
             {
                 SELECT("*");
                 FROM("ECOMMERCE_COMPUTER");
-                WHERE("name like '%#{name}%' ");
+                WHERE("lower(replace(name, ' ','')) like '%"
+                +para.get("name")+"%' ");
             }
         }.toString();
+//        return "select * from ecommerce_computer where (lower(replace(name, ' ','')) like '%"
+//                + para.get("name") + "%') ";
     }
 }

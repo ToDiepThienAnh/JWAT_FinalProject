@@ -11,5 +11,4 @@ public interface RoleService extends IGenericService<Role, Long> {
 
     public Role findByName(String roleName);
 
-    public List<RoleDto> findAllRole();
 }
