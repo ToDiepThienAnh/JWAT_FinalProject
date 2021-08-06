@@ -2,6 +2,7 @@ package cyberlogitec.training.project.ecommerce.user.service;
 
 import cyberlogitec.training.project.ecommerce.common.GenericService;
 import cyberlogitec.training.project.ecommerce.dto.user.CreateUserDto;
+import cyberlogitec.training.project.ecommerce.dto.user.RegisterDto;
 import cyberlogitec.training.project.ecommerce.dto.user.UserWithRoleDto;
 import cyberlogitec.training.project.ecommerce.mybatis.mapper.IUserModuleMapper;
 import cyberlogitec.training.project.ecommerce.user.model.Role;
@@ -41,6 +42,18 @@ public class UserServiceImpl extends GenericService<User, Long> implements UserS
         Role role = roleRepository.findByName(user.getRoleName());
         userAdd.setRole(role);
         return userRepository.save(userAdd);
+    }
+
+    @Override
+    public User save(RegisterDto register) {
+        User newUser = new User();
+        newUser.setEmail(register.getEmail());
+        newUser.setUsername(register.getUsername());
+        newUser.setPassword(passwordEncoder.encode(register.getPassword()));
+        newUser.setStatus(UserStatus.ACTIVE);
+        Role role = roleRepository.findByName("CUSTOMER");
+        newUser.setRole(role);
+        return userRepository.save(newUser);
     }
 
     @Override

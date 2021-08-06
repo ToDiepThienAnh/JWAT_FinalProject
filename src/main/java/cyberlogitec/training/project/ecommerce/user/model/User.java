@@ -29,7 +29,6 @@ public class User extends AbstractEntity {
     @Size(message = "{user.username.size}", min = 4, max = 8)
     private String username;
 
-    @NotBlank(message = "{user.userId.notblank")
     private String userId;
 
     private String fullname;
