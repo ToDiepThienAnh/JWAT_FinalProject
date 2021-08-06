@@ -6,4 +6,8 @@ import cyberlogitec.training.project.ecommerce.invoice.model.Promotion;
 
 public interface PromotionService extends IGenericService<Promotion, Long> {
     public Promotion save(CreatePromotionDto dto);
+
+    public Promotion update(CreatePromotionDto dto, String code);
+
+    public Promotion deleteByCode(String code);
 }

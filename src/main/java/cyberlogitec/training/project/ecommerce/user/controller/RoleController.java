@@ -23,8 +23,6 @@ public class RoleController {
         return list;
     }
 
-
-
     @PostMapping("")
     public Role addRole(@Valid @RequestBody Role role){
         return service.save(role);

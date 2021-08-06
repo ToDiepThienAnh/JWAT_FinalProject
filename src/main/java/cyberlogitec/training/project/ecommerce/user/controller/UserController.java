@@ -3,9 +3,11 @@ package cyberlogitec.training.project.ecommerce.user.controller;
 import cyberlogitec.training.project.ecommerce.common.ResponseObject;
 import cyberlogitec.training.project.ecommerce.dto.user.CreateUserDto;
 import cyberlogitec.training.project.ecommerce.dto.user.RegisterDto;
+import cyberlogitec.training.project.ecommerce.dto.user.UpdateUserDto;
 import cyberlogitec.training.project.ecommerce.dto.user.UserWithRoleDto;
 import cyberlogitec.training.project.ecommerce.user.model.User;
 import cyberlogitec.training.project.ecommerce.user.service.UserService;
+import io.swagger.models.Response;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,5 +39,25 @@ public class UserController {
         return ResponseObject.getResponse(newUser, HttpStatus.CREATED);
     }
 
+    @PutMapping("/{username}")
+    public ResponseEntity<Object> updateUser(@Valid @RequestBody UpdateUserDto user,
+                                             BindingResult errors,
+                                             @PathVariable("username") String username){
+        if(username == null || username.equals(""))
+            return ResponseObject.getResponse("username can not be blank", HttpStatus.BAD_REQUEST);
+        if(errors.hasErrors())
+            return ResponseObject.getResponse(errors, HttpStatus.BAD_REQUEST);
+        User userUpdate = service.update(user, username);
+        return ResponseObject.getResponse(userUpdate, HttpStatus.OK);
+    }
 
+    @DeleteMapping("/{username}")
+    public ResponseEntity<Object> deleteByUsername(
+                                             BindingResult errors,
+                                             @PathVariable("username") String username){
+        if(username == null || username.equals(""))
+            return ResponseObject.getResponse("username can not be blank", HttpStatus.BAD_REQUEST);
+        service.deleteByUsername(username);
+        return ResponseObject.getResponse("delete successfully", HttpStatus.OK);
+    }
 }

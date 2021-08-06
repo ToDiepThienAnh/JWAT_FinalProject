@@ -1,5 +1,6 @@
 package cyberlogitec.training.project.ecommerce.invoice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cyberlogitec.training.project.ecommerce.common.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,5 +32,6 @@ public class Promotion extends AbstractEntity {
     private int percentageDiscount;
 
     @OneToMany(mappedBy = "promotion", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Invoice> invoices;
 }

@@ -39,7 +39,7 @@ public class ComputerController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Object> addNewType(@Valid @RequestBody CreateComputerDto dto,
+    public ResponseEntity<Object> add(@Valid @RequestBody CreateComputerDto dto,
                                              BindingResult errors){
         if(errors.hasErrors())
             return ResponseObject.getResponse(errors, HttpStatus.BAD_REQUEST);
@@ -49,5 +49,30 @@ public class ComputerController {
 
     }
 
+    @PutMapping("/{code}")
+    public ResponseEntity<Object> update(@Valid @RequestBody CreateComputerDto dto,
+                                             BindingResult errors,
+                                         @PathVariable("code") String code){
+        if(code == null || code.equals(""))
+            return ResponseObject.getResponse("code can not be blank", HttpStatus.BAD_REQUEST);
+        if(errors.hasErrors())
+            return ResponseObject.getResponse(errors, HttpStatus.BAD_REQUEST);
+        Computer newComputer = service.update(dto, code);
+
+        return ResponseObject.getResponse(newComputer, HttpStatus.OK);
+
+    }
+
+    @DeleteMapping("/{code}")
+    public ResponseEntity<Object> deleteByCode(
+                                         BindingResult errors,
+                                         @PathVariable("code") String code){
+        if(code == null || code.equals(""))
+            return ResponseObject.getResponse("code can not be blank", HttpStatus.BAD_REQUEST);
+        service.deleteByCode(code);
+
+        return ResponseObject.getResponse("delete successfully", HttpStatus.OK);
+
+    }
 
 }

@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PromotionRepository extends JpaRepository<Promotion, Long> {
+    public Promotion findByCode(String code);
+
+    public void deleteByCode(String code);
 }

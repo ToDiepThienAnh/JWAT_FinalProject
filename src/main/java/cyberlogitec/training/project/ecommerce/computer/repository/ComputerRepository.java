@@ -7,4 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ComputerRepository extends JpaRepository<Computer, Long> {
     public Computer findByName(String name);
+
+    public Computer findByCode(String code);
+
+    public void deleteByCode(String code);
 }

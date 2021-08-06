@@ -31,5 +31,6 @@ public class Comment extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "username")
+    @JsonIgnore
     private User user;
 }
