@@ -18,12 +18,31 @@ public class RoleServiceImpl extends GenericService<Role, Long> implements RoleS
     private IUserModuleMapper userRepository;
 
     @Override
-    public Role updateRole(Role role, String roleName) {
+    public Role updateRole(RoleDto role, String roleName) {
         Role roleUpdate = repository.findByName(roleName);
+        if(roleUpdate == null)
+            return null;
         roleUpdate.setName(role.getName());
         roleUpdate.setDescription(role.getDescription());
 
         return repository.save(roleUpdate);
+    }
+
+    @Override
+    public Role save(RoleDto dto) {
+        Role role = new Role();
+        role.setName(dto.getName());
+        role.setDescription(dto.getDescription());
+        return repository.save(role);
+    }
+
+    @Override
+    public Role deleteByName(String name) {
+        Role role = repository.findByName(name);
+        if(role == null)
+            return null;
+        repository.deleteByName(name);
+        return role;
     }
 
     @Override
