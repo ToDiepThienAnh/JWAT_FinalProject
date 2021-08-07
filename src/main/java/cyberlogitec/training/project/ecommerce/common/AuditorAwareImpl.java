@@ -14,7 +14,6 @@ public class AuditorAwareImpl implements AuditorAware<String> {
             return Optional.ofNullable(userCurrent);
         } catch (NullPointerException e){
             e.printStackTrace();
-        } finally {
             return Optional.ofNullable("customer register");
         }
     }

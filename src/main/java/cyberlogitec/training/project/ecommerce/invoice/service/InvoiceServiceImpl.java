@@ -5,6 +5,7 @@ import cyberlogitec.training.project.ecommerce.computer.model.Computer;
 import cyberlogitec.training.project.ecommerce.computer.repository.ComputerRepository;
 import cyberlogitec.training.project.ecommerce.dto.invoice.ComputerAmount;
 import cyberlogitec.training.project.ecommerce.dto.invoice.PurchasedComputer;
+import cyberlogitec.training.project.ecommerce.dto.invoice.UpdateStatusInvoice;
 import cyberlogitec.training.project.ecommerce.invoice.model.Invoice;
 import cyberlogitec.training.project.ecommerce.invoice.model.InvoiceDetail;
 import cyberlogitec.training.project.ecommerce.invoice.repository.InvoiceDetailRepository;
@@ -76,5 +77,25 @@ public class InvoiceServiceImpl extends GenericService<Invoice, Long> implements
             invoiceDetailRepository.save(invoiceDetail);
         }
         return invoiceAdded;
+    }
+
+    @Override
+    public Invoice confirmSentInvoice(UpdateStatusInvoice dto) {
+        Optional<Invoice> invoice = invoiceRepository.findByCode(dto.getCode());
+        if(invoice.isEmpty())
+            return null;
+        invoice.get().setStatus(InvoiceStatus.SENT);
+        return invoiceRepository.save(invoice.get());
+    }
+
+    @Override
+    public Invoice confrimCancelInvoice(UpdateStatusInvoice dto) throws Exception {
+        Optional<Invoice> invoice = invoiceRepository.findByCode(dto.getCode());
+        if(invoice.isEmpty())
+            return null;
+        if(!invoice.get().getStatus().equals(InvoiceStatus.PENDING))
+            throw new Exception("Invoice is sent. You can not cancel this invoice");
+        invoice.get().setStatus(InvoiceStatus.CANCELED);
+        return invoiceRepository.save(invoice.get());
     }
 }
