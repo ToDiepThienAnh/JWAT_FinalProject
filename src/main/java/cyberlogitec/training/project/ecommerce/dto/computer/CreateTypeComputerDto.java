@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 public class CreateTypeComputerDto {
-    @NotBlank(message = "{computer.type.name.notblank")
+    @NotBlank(message = "{type-computer.name.notblank")
     private String name;
 
     private String description;

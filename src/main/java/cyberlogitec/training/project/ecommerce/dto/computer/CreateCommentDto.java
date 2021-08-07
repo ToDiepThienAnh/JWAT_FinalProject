@@ -8,12 +8,12 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 public class CreateCommentDto {
-    @NotBlank(message = "{computer.type.content.botblank}")
+    @NotBlank(message = "{comment.content.botblank}")
     private String content;
 
     private long replyForId;
 
-    @NotBlank(message = "{computer.computer.name.notblank")
+    @NotBlank(message = "{computer.name.notblank")
     private String nameComputer;
 
 }

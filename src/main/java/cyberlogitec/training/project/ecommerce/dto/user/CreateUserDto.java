@@ -28,7 +28,7 @@ public class CreateUserDto {
     @NotBlank(message = "{user.userId.notblank}")
     private String userId;
 
-    @NotBlank(message = "{user.role.name.notblank")
+    @NotBlank(message = "{role.name.notblank")
     private String roleName;
 
 }
