@@ -3,13 +3,13 @@ package cyberlogitec.training.project.ecommerce.invoice.service;
 import cyberlogitec.training.project.ecommerce.common.GenericService;
 import cyberlogitec.training.project.ecommerce.computer.model.Computer;
 import cyberlogitec.training.project.ecommerce.computer.repository.ComputerRepository;
-import cyberlogitec.training.project.ecommerce.dto.invoice.ComputerAmount;
-import cyberlogitec.training.project.ecommerce.dto.invoice.PurchasedComputer;
-import cyberlogitec.training.project.ecommerce.dto.invoice.UpdateStatusInvoice;
+import cyberlogitec.training.project.ecommerce.dto.invoice.*;
 import cyberlogitec.training.project.ecommerce.invoice.model.Invoice;
 import cyberlogitec.training.project.ecommerce.invoice.model.InvoiceDetail;
+import cyberlogitec.training.project.ecommerce.invoice.model.Promotion;
 import cyberlogitec.training.project.ecommerce.invoice.repository.InvoiceDetailRepository;
 import cyberlogitec.training.project.ecommerce.invoice.repository.InvoiceRepository;
+import cyberlogitec.training.project.ecommerce.invoice.repository.PromotionRepository;
 import cyberlogitec.training.project.ecommerce.invoice.utils.InvoiceDetailId;
 import cyberlogitec.training.project.ecommerce.invoice.utils.InvoiceStatus;
 import cyberlogitec.training.project.ecommerce.mybatis.mapper.IInvoiceDetailMapper;
@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -34,10 +35,15 @@ public class InvoiceServiceImpl extends GenericService<Invoice, Long> implements
     private UserRepository userRepository;
     private IInvoiceDetailMapper iInvoiceDetailMapper;
     private InvoiceDetailRepository invoiceDetailRepository;
+    private PromotionRepository promotionRepository;
 
     @Override
     public Invoice save(PurchasedComputer computers) {
         Invoice invoice = new Invoice();
+        Promotion promotion = promotionRepository.findByCode(computers.getPromotionCode());
+        if(promotion == null)
+            invoice.setPromotion(null);
+        invoice.setPromotion(promotion);
         invoice.setCode(RandomStringUtils.randomAlphanumeric(10));
         invoice.setStatus(InvoiceStatus.PENDING);
         Optional<User> buyer = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -52,15 +58,25 @@ public class InvoiceServiceImpl extends GenericService<Invoice, Long> implements
                     )
                     .multiply(new BigDecimal(computer.getAmount()));
         }
-        if(invoicePrice.compareTo(new BigDecimal("20000000")) != 1){
-            invoicePrice = invoicePrice.add(computers.getFeeShip());
-            invoice.setFeeShip(new BigDecimal("20000000"));
+        // Compare Promotion
+        if(invoicePrice.compareTo(promotion.getDiscountPrice()) == 1){
+            BigDecimal pricePromotionDiscount = invoicePrice.multiply(
+                    BigDecimal.valueOf(promotion.getPercentageDiscount()).divide(BigDecimal.valueOf(100)));
+            if(pricePromotionDiscount.compareTo(promotion.getMaxPrice()) == 1){
+                invoicePrice = invoicePrice.subtract(promotion.getMaxPrice());
+            } else {
+                invoicePrice = invoicePrice.subtract(pricePromotionDiscount);
+            }
+        }
+        // Fee Ship
+        if(!computers.isFeeShip()){
+            invoicePrice = invoicePrice.add(BigDecimal.valueOf(200000));
+            invoice.setFeeShip(new BigDecimal("200000"));
         }
         else {
-            invoicePrice = invoicePrice.subtract(computers.getFeeShip());
+            invoicePrice = invoicePrice.subtract(BigDecimal.valueOf(200000));
             invoice.setFeeShip(BigDecimal.ZERO);
         }
-        invoice.setPromotion(null);
         invoice.setPrice(invoicePrice);
         Set<InvoiceDetail> invoiceDetails = new HashSet<>();
         Invoice invoiceAdded = invoiceRepository.save(invoice);
@@ -97,5 +113,15 @@ public class InvoiceServiceImpl extends GenericService<Invoice, Long> implements
             throw new Exception("Invoice is sent. You can not cancel this invoice");
         invoice.get().setStatus(InvoiceStatus.CANCELED);
         return invoiceRepository.save(invoice.get());
+    }
+
+    @Override
+    public RevenueOfMonthDto getRevenueOfThisMonth() {
+        return iInvoiceDetailMapper.getRevenueOfThisMonth();
+    }
+
+    @Override
+    public List<ComputerIsSelledDto> getComputerIsSelled() {
+        return iInvoiceDetailMapper.getComputerIsSelled();
     }
 }

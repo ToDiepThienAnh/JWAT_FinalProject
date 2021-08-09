@@ -4,6 +4,7 @@ import cyberlogitec.training.project.ecommerce.common.ResponseObject;
 import cyberlogitec.training.project.ecommerce.computer.model.TypeComputer;
 import cyberlogitec.training.project.ecommerce.computer.service.TypeComputerService;
 import cyberlogitec.training.project.ecommerce.dto.computer.CreateTypeComputerDto;
+import cyberlogitec.training.project.ecommerce.utils.Domain;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +16,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/type-computer")
+@RequestMapping("")
 @AllArgsConstructor
 public class TypeComputerController {
     private TypeComputerService service;
 
-    @GetMapping("")
+    @GetMapping(Domain.DOMAIN_USER+"/type-computer")
     public ResponseEntity<Object> findAll(){
         List<TypeComputer> list = service.findAll();
         if(list.isEmpty())
@@ -28,7 +29,7 @@ public class TypeComputerController {
         return ResponseObject.getResponse(list, HttpStatus.OK);
     }
 
-    @PostMapping("")
+    @PostMapping(Domain.EMPLOYEE+"/type-computer")
     public ResponseEntity<Object> addNewType(@Valid @RequestBody CreateTypeComputerDto type,
                                              BindingResult errors){
         if(errors.hasErrors())
@@ -39,7 +40,7 @@ public class TypeComputerController {
 
     }
 
-    @PutMapping("/{type-name}")
+    @PutMapping(Domain.DOMAIN_EMPLOYEE+"/type-computer/{type-name}")
     public ResponseEntity<Object> updateTypeComputer(@Valid @RequestBody CreateTypeComputerDto type,
                                                      BindingResult errors,
                                                      @PathVariable("type-name") String typeName){
@@ -49,7 +50,7 @@ public class TypeComputerController {
         return ResponseObject.getResponse(typeUpdate, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{type-name}")
+    @DeleteMapping(Domain.DOMAIN_EMPLOYEE+"/type-computer/{type-name}")
     public ResponseEntity<Object> deleteByName(@PathVariable("type-name") String typeName){
 
         if(typeName == null){

@@ -31,6 +31,8 @@ public class User extends AbstractEntity {
 
     private String userId;
 
+    private String phone;
+
     private String fullname;
 
     private String password;

@@ -1,6 +1,7 @@
 package cyberlogitec.training.project.ecommerce.config;
 
 import cyberlogitec.training.project.ecommerce.security.jwt.JwtAuthorizationFilter;
+import cyberlogitec.training.project.ecommerce.utils.Domain;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,11 +41,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // disable csrf for development environment
         http.csrf().disable();
         // configure authentication for apis
-        http.antMatcher("/api/**").authorizeRequests()
-                .antMatchers("/swagger-ui.html").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/api/user/**").hasAuthority("MANAGEMENT")
-                .antMatchers("/api/role/**").hasAuthority("CUSTOMER")
+        http.antMatcher(Domain.DOMAIN_USER+"/**").authorizeRequests()
+//                .antMatchers("/swagger-ui.html").permitAll()
+//                .antMatchers("/login").permitAll()
+                .antMatchers(Domain.DOMAIN_EMPLOYEE+"/**").hasAuthority("MANAGEMENT")
+                .antMatchers(Domain.DOMAIN_CUSTOMER+"/**").hasAuthority("CUSTOMER")
                 .anyRequest().authenticated();
         // make server stateless
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

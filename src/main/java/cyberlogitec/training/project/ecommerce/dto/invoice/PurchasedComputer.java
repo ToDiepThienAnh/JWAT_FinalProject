@@ -12,6 +12,7 @@ import java.util.List;
 public class PurchasedComputer {
     List<ComputerAmount> computers = new LinkedList<>();
 
-    private BigDecimal feeShip = new BigDecimal("200000");
+    private boolean feeShip;
 
+    private String promotionCode;
 }

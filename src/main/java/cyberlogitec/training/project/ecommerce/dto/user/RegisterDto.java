@@ -1,5 +1,6 @@
 package cyberlogitec.training.project.ecommerce.dto.user;
 
+import cyberlogitec.training.project.ecommerce.user.annotation.CheckNumber;
 import cyberlogitec.training.project.ecommerce.user.annotation.ConfirmPassword;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,12 @@ public class RegisterDto {
     @Size(message = "{user.username.size}", min = 4, max = 8)
     private String username;
 
-    @NotBlank(message = "{user.password.notblank")
+    @NotBlank(message = "{user.phone.notblank}")
+    @Size(message = "{user.phone.size}", min = 10, max = 11)
+    @CheckNumber
+    private String phone;
+
+    @NotBlank(message = "{user.password.notblank}")
     private String password;
 
     @NotBlank(message = "{user.confirm-password.notblank")

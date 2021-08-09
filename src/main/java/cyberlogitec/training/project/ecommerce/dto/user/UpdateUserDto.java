@@ -25,6 +25,8 @@ public class UpdateUserDto {
     @ExistsEmail
     private String email;
 
+    private String phone;
+
     @NotBlank(message = "{user.password.notblank")
     private String password;
 

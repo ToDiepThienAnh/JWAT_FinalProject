@@ -7,6 +7,7 @@ import cyberlogitec.training.project.ecommerce.computer.service.ComputerService;
 import cyberlogitec.training.project.ecommerce.dto.computer.ComputerDto;
 import cyberlogitec.training.project.ecommerce.dto.computer.CreateComputerDto;
 import cyberlogitec.training.project.ecommerce.dto.computer.CreateTypeComputerDto;
+import cyberlogitec.training.project.ecommerce.utils.Domain;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +19,11 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/api/computer", produces = "application/json;charset=UTF-8")
+@RequestMapping(value = "", produces = "application/json;charset=UTF-8")
 public class ComputerController {
     private ComputerService service;
 
-    @GetMapping("")
+    @GetMapping(Domain.DOMAIN_USER+"/computer")
     public ResponseEntity<Object> findAll(){
         List<Computer> list = service.findAll();
         if(list.isEmpty())
@@ -30,7 +31,7 @@ public class ComputerController {
         return ResponseObject.getResponse(list, HttpStatus.OK);
     }
 
-    @GetMapping("/search")
+    @GetMapping(Domain.DOMAIN_USER+"/computer/search")
     public ResponseEntity<Object> searchByName(@RequestParam("name") String name){
         List<ComputerDto> list = service.searchByName(name);
         if(list.isEmpty())
@@ -38,7 +39,7 @@ public class ComputerController {
         return ResponseObject.getResponse(list, HttpStatus.OK);
     }
 
-    @PostMapping("")
+    @PostMapping(Domain.DOMAIN_EMPLOYEE+"/computer")
     public ResponseEntity<Object> add(@Valid @RequestBody CreateComputerDto dto,
                                              BindingResult errors){
         if(errors.hasErrors())
@@ -49,7 +50,7 @@ public class ComputerController {
 
     }
 
-    @PutMapping("/{code}")
+    @PutMapping(Domain.DOMAIN_EMPLOYEE+"computer/{code}")
     public ResponseEntity<Object> update(@Valid @RequestBody CreateComputerDto dto,
                                              BindingResult errors,
                                          @PathVariable("code") String code){
@@ -63,7 +64,7 @@ public class ComputerController {
 
     }
 
-    @DeleteMapping("/{code}")
+    @DeleteMapping(Domain.DOMAIN_EMPLOYEE+"/computer/{code}")
     public ResponseEntity<Object> deleteByCode(
                                          BindingResult errors,
                                          @PathVariable("code") String code){

@@ -40,12 +40,10 @@ public class CreateComputerDto {
     private ComputerStatus status;
 
     @Min(value = 5000000, message = "{computer.price.min}")
-    @NotBlank(message = "{computer.price.notblank")
     private BigDecimal price;
 
     @Min(value = 0, message = "{computer.discount.min}")
     @Max(value = 50, message = "{computer.discount.max")
-    @NotBlank(message = "{computer.discount.notblank")
     private int discount;
 
     @NotBlank(message = "{type-computer.name.notblank")

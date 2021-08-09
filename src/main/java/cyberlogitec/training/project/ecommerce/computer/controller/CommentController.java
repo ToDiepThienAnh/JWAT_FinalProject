@@ -5,6 +5,7 @@ import cyberlogitec.training.project.ecommerce.computer.model.Comment;
 import cyberlogitec.training.project.ecommerce.computer.service.CommentService;
 import cyberlogitec.training.project.ecommerce.dto.computer.CreateCommentDto;
 import cyberlogitec.training.project.ecommerce.dto.computer.UpdateCommentDto;
+import cyberlogitec.training.project.ecommerce.utils.Domain;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +16,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/comment")
+@RequestMapping("")
 @AllArgsConstructor
 public class CommentController {
     private CommentService service;
 
-    @GetMapping("")
+    @GetMapping(Domain.DOMAIN_EMPLOYEE+"/comments")
     public ResponseEntity<Object> findAllComments(){
         List<Comment> list = service.findAll();
         if(list.isEmpty())
@@ -28,7 +29,7 @@ public class CommentController {
         return ResponseObject.getResponse(list, HttpStatus.OK);
     }
 
-    @PostMapping("")
+    @PostMapping(Domain.DOMAIN_USER+"/comments")
     public ResponseEntity<Object> addComment(@Valid @RequestBody CreateCommentDto dto,
                                              BindingResult errors){
         if(errors.hasErrors())
@@ -37,7 +38,7 @@ public class CommentController {
         return ResponseObject.getResponse(addComment, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(Domain.DOMAIN_USER+"/{id}")
     public ResponseEntity<Object> updateComment(@Valid @RequestBody UpdateCommentDto dto,
                                              BindingResult errors,
                                                 @PathVariable("id") long commentId){
@@ -56,7 +57,7 @@ public class CommentController {
 
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(Domain.DOMAIN_USER+"/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable("id") long commentId){
         if(commentId == 0)
             return ResponseObject.getResponse("id can not equal 0", HttpStatus.BAD_REQUEST);

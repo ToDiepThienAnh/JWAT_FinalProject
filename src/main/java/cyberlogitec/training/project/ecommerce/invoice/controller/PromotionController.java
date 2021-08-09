@@ -5,6 +5,7 @@ import cyberlogitec.training.project.ecommerce.dto.computer.CreateCommentDto;
 import cyberlogitec.training.project.ecommerce.dto.invoice.CreatePromotionDto;
 import cyberlogitec.training.project.ecommerce.invoice.model.Promotion;
 import cyberlogitec.training.project.ecommerce.invoice.service.PromotionService;
+import cyberlogitec.training.project.ecommerce.utils.Domain;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +16,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/promotion")
+@RequestMapping("")
 @AllArgsConstructor
 public class PromotionController {
     private PromotionService service;
 
-    @GetMapping("")
+    @GetMapping(Domain.DOMAIN_EMPLOYEE+"/promotion")
     public ResponseEntity<Object> findAllPromotions(){
         List<Promotion> list = service.findAll();
         if(list.isEmpty())
@@ -28,7 +29,7 @@ public class PromotionController {
         return ResponseObject.getResponse(list, HttpStatus.OK);
     }
 
-    @PostMapping("")
+    @PostMapping(Domain.DOMAIN_EMPLOYEE+"/promotion")
     public ResponseEntity<Object> add(@Valid @RequestBody CreatePromotionDto dto,
                                       BindingResult errors){
         if(errors.hasErrors())
@@ -37,7 +38,7 @@ public class PromotionController {
         return ResponseObject.getResponse(promotion, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{code}")
+    @PutMapping(Domain.DOMAIN_EMPLOYEE+"/promotion/{code}")
     public ResponseEntity<Object> update(@Valid @RequestBody CreatePromotionDto dto,
                                       BindingResult errors,
                                          @PathVariable("code") String code){
@@ -51,7 +52,7 @@ public class PromotionController {
         return ResponseObject.getResponse(promotion, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{code}")
+    @DeleteMapping(Domain.DOMAIN_EMPLOYEE+"/promotion/{code}")
     public ResponseEntity<Object> deleteByCode(@PathVariable("code") String code){
         if(code == null || code.equals(""))
             return ResponseObject.getResponse("code is invalid", HttpStatus.BAD_REQUEST);

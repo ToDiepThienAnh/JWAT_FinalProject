@@ -4,6 +4,7 @@ import cyberlogitec.training.project.ecommerce.common.ResponseObject;
 import cyberlogitec.training.project.ecommerce.dto.user.RoleDto;
 import cyberlogitec.training.project.ecommerce.user.model.Role;
 import cyberlogitec.training.project.ecommerce.user.service.RoleService;
+import cyberlogitec.training.project.ecommerce.utils.Domain;
 import io.swagger.models.Response;
 import lombok.AllArgsConstructor;
 import org.springframework.data.repository.query.Param;
@@ -16,7 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/role")
+@RequestMapping(Domain.DOMAIN_EMPLOYEE+"/role")
 @AllArgsConstructor
 public class RoleController {
     private RoleService service;

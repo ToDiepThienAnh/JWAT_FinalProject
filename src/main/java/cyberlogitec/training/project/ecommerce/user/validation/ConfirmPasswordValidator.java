@@ -32,6 +32,10 @@ public class ConfirmPasswordValidator implements ConstraintValidator<ConfirmPass
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
+
+        context.buildConstraintViolationWithTemplate(message)
+                .addConstraintViolation()
+                .disableDefaultConstraintViolation();
         return false;
     }
 }

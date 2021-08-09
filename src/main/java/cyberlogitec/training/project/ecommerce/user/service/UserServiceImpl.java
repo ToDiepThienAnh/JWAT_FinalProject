@@ -53,6 +53,7 @@ public class UserServiceImpl extends GenericService<User, Long> implements UserS
         newUser.setUsername(register.getUsername());
         newUser.setPassword(passwordEncoder.encode(register.getPassword()));
         newUser.setStatus(UserStatus.ACTIVE);
+        newUser.setPhone(register.getPhone());
         Role role = roleRepository.findByName("CUSTOMER");
         newUser.setRole(role);
         return userRepository.save(newUser);
@@ -68,6 +69,7 @@ public class UserServiceImpl extends GenericService<User, Long> implements UserS
         userUpdate.get().setUserId(user.getUserId());
         userUpdate.get().setFullname(user.getFullname());
         userUpdate.get().setStatus(user.getStatus());
+        userUpdate.get().setPhone(user.getPhone());
         userUpdate.get().setEmail(user.getEmail());
         Role role = roleRepository.findByName(user.getRoleName());
         userUpdate.get().setRole(role);

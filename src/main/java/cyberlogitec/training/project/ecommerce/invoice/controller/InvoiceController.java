@@ -1,10 +1,13 @@
 package cyberlogitec.training.project.ecommerce.invoice.controller;
 
 import cyberlogitec.training.project.ecommerce.common.ResponseObject;
+import cyberlogitec.training.project.ecommerce.dto.invoice.ComputerIsSelledDto;
 import cyberlogitec.training.project.ecommerce.dto.invoice.PurchasedComputer;
+import cyberlogitec.training.project.ecommerce.dto.invoice.RevenueOfMonthDto;
 import cyberlogitec.training.project.ecommerce.dto.invoice.UpdateStatusInvoice;
 import cyberlogitec.training.project.ecommerce.invoice.model.Invoice;
 import cyberlogitec.training.project.ecommerce.invoice.service.InvoiceService;
+import cyberlogitec.training.project.ecommerce.utils.Domain;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +18,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/invoice")
+@RequestMapping("")
 @AllArgsConstructor
 public class InvoiceController {
     private InvoiceService service;
 
-    @GetMapping("")
+    @GetMapping(Domain.DOMAIN_EMPLOYEE+"/invoice")
     public ResponseEntity<Object> findAll(){
         List<Invoice> list = service.findAll();
 
@@ -29,7 +32,7 @@ public class InvoiceController {
         return ResponseObject.getResponse(list, HttpStatus.OK);
     }
 
-    @PostMapping("/purchase")
+    @PostMapping(Domain.DOMAIN_CUSTOMER+"/invoice/purchase")
     public ResponseEntity<Object> purchaseComputer(@Valid @RequestBody PurchasedComputer computers,
                                                    BindingResult errors){
         if(errors.hasErrors())
@@ -38,7 +41,7 @@ public class InvoiceController {
         return ResponseObject.getResponse(invoice, HttpStatus.CREATED);
     }
 
-    @PutMapping("/confirm-sent")
+    @PutMapping(Domain.DOMAIN_EMPLOYEE+"/invoice/confirm-sent")
     public ResponseEntity<Object> confirmSentInvoice(@Valid @RequestBody UpdateStatusInvoice dto,
                                                      BindingResult errors){
         if(errors.hasErrors())
@@ -49,7 +52,7 @@ public class InvoiceController {
         return ResponseObject.getResponse(invoice, HttpStatus.OK);
     }
 
-    @DeleteMapping("/confirm-cancel")
+    @DeleteMapping(Domain.DOMAIN_USER+"/invoice/confirm-cancel")
     public ResponseEntity<Object> confirmCancelInvoice(@Valid @RequestBody UpdateStatusInvoice dto,
                                                        BindingResult errors){
         if(errors.hasErrors())
@@ -64,5 +67,23 @@ public class InvoiceController {
         if(invoice == null)
             return ResponseObject.getResponse("invoice code is invalid", HttpStatus.BAD_REQUEST);
         return ResponseObject.getResponse(invoice, HttpStatus.OK);
+    }
+
+    @GetMapping(Domain.DOMAIN_EMPLOYEE+"/invoice/revenue")
+    public ResponseEntity<Object> getComputerIsSelled(){
+        List<ComputerIsSelledDto> list = service.getComputerIsSelled();
+
+        if(list.isEmpty())
+            return ResponseObject.getResponse("There is no data", HttpStatus.OK);
+        return ResponseObject.getResponse(list, HttpStatus.OK);
+    }
+
+    @GetMapping(Domain.DOMAIN_EMPLOYEE+"/invoice/computer-selled")
+    public ResponseEntity<Object> getRevenueOfThisMonth(){
+        RevenueOfMonthDto list = service.getRevenueOfThisMonth();
+
+        if(list == null)
+            return ResponseObject.getResponse("There is no data", HttpStatus.OK);
+        return ResponseObject.getResponse(list, HttpStatus.OK);
     }
 }

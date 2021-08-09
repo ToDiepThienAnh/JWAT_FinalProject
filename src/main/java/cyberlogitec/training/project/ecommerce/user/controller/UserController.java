@@ -7,6 +7,7 @@ import cyberlogitec.training.project.ecommerce.dto.user.UpdateUserDto;
 import cyberlogitec.training.project.ecommerce.dto.user.UserWithRoleDto;
 import cyberlogitec.training.project.ecommerce.user.model.User;
 import cyberlogitec.training.project.ecommerce.user.service.UserService;
+import cyberlogitec.training.project.ecommerce.utils.Domain;
 import io.swagger.models.Response;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,12 +19,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("")
 @AllArgsConstructor
 public class UserController {
     private UserService service;
 
-    @GetMapping("")
+    @GetMapping(Domain.DOMAIN_EMPLOYEE+"/user")
     public ResponseEntity<Object> findAll(){
         List<UserWithRoleDto> list = service.getUserWithRole();
         if(list.isEmpty())
@@ -31,7 +32,7 @@ public class UserController {
         return ResponseObject.getResponse(list, HttpStatus.OK);
     }
 
-    @PostMapping("")
+    @PostMapping(Domain.DOMAIN_EMPLOYEE+"/user")
     public ResponseEntity<Object> addUser(@Valid @RequestBody CreateUserDto user, BindingResult errors){
         if(errors.hasErrors())
             return ResponseObject.getResponse(errors, HttpStatus.BAD_REQUEST);
@@ -39,7 +40,7 @@ public class UserController {
         return ResponseObject.getResponse(newUser, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{username}")
+    @PutMapping(Domain.DOMAIN_USER+"/user/{username}")
     public ResponseEntity<Object> updateUser(@Valid @RequestBody UpdateUserDto user,
                                              BindingResult errors,
                                              @PathVariable("username") String username){
@@ -51,7 +52,7 @@ public class UserController {
         return ResponseObject.getResponse(userUpdate, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{username}")
+    @DeleteMapping(Domain.DOMAIN_EMPLOYEE+"/user/{username}")
     public ResponseEntity<Object> deleteByUsername(
                                              BindingResult errors,
                                              @PathVariable("username") String username){
